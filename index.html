@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>EzArabic</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <link href="assets/img/icon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="assets/css/fonts.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="assets/css/bootstrap.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center header-transparent">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+      <h1 class="logo">
+        <a href="index.html">EzArabic</a>
+      </h1>
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li>
+            <a class="nav-link scrollto active" href="#hero">Home</a>
+          </li>
+          <li>
+            <div class="dropdown">
+              <a class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Tools
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#tool">Converter</a></li>
+                <li><a class="dropdown-item" href="#table1">Table List</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a class="nav-link scrollto" style="cursor: pointer" data-toggle="modal" data-target="#about">About</a>
+          </li>
+        </ul>
+        <a class="nav-link scrollto" data-toggle="modal" data-target="#about">
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </a>
+      </nav>
+      <div class="social-links">
+        <a href="https://github.com/User-425/EzArabic" target="_blank" rel="noopener noreferrer">
+          <i class="bi bi-github"></i>
+        </a>
+        <a class="nav-link scrollto" data-toggle="modal" data-target="#setting">
+          <i id="settingGear" class="bi bi-gear"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+  
+  <section id="tool" class="section-bg">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="section-header text-center">
+            <h3>Empowering Your Arabic Typing Experience</h3>
+            <p>Seamlessly convert from Latin characters into stunning Arabic script.</p>
+            <button class="btn-get-started">Get Started</button>     
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="fixed-bottom alert alert-info alert-dismissible fade js-alert alert-primary" role="alert" id="myalert">
+    <strong>Success! </strong>
+    Text Has Been Copied
+  </div>
+
+  <!-- End Header -->
+
+  <main id="main">
+    <section id="tool" class="tool">
+      <div class="container" data-aos="fade-up">
+        <div class="row">
+          <form>
+            <label for="input">Input</label>
+                  <textarea class="form-control" rows="6" id="input" autocomplete="off"></textarea>
+            <div class="form-group">
+              <label for="output">Output</label>
+              <br>
+              <textarea class="form-control right" rows="6" id="output" disabled="disabled"></textarea>
+              <input type="range" style="--min: 14;
+						 --max: 75;
+						 --val: 25" step=".0002" id="slider" />
+            </div>
+            <br>
+            <button type="button" class="btn btn-primary" id="copybtn" onclick="copy('output','val')"
+              style="width: 100px;">Copy text</button>
+          </form>
+          <br>
+          <div class="tablegrid">
+            <h3 class="tabletitle tengah">Convertation Table List</h3>
+            <h5 class="table1title tengah">Normal Module</h5>
+            <div class="tengah" id="table1"> </div>
+            <h5 class="table2title tengah">Legacy Module</h5>
+            <div class="tengah" id="table2"> </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modals Div -->
+  <div>
+    <div class="modal fade padding-auto" id="setting" tabindex="1" role="dialog" aria-labelledby="settingModal"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <h3 class="modal-title">Setting</h3>
+            <button type="button" class="btn-close" data-dismiss="modal"></button>
+          </div>
+          <!-- <a data-toggle="modal" data-target="#templateEdit" class="flex-item" href="">Edit Template </a> -->
+          <div class="modal-body">
+            <h6><strong>Module :</strong></h6>
+            <select id="moduleSelect" class="form-select" aria-label="Default select example">
+            </select> <br>
+            <h6><strong>Auto Scroll :</strong></h6>
+            <label class="switch">
+              <input type="checkbox" id="autoScroll" checked>
+              <span class="slider round"></span>
+            </label>
+            <br><br>
+            <h6><strong>Reverse Translate :</strong></h6>
+            <label class="switch">
+              <input type="checkbox" id="reverse">
+              <span class="slider round"></span>
+            </label>
+            <br><br>
+            <h6><strong>Table on Click</strong></h6>
+            <form action="index.html" method="post">
+              <select id="tablefeature" class="form-select" aria-label="Default select example">
+                <option selected value="copy">Copy</option>
+                <option value="insert">Insert</option>
+              </select>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade padding-auto" id="about" tabindex="0" role="dialog" aria-labelledby="aboutModal"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <h3 class="modal-title">About</h3>
+            <button type="button" class="btn-close" data-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <h5><strong>EzArabic</strong></h5>
+            <div class="wrap-flex">
+              <p id="vrs"></p>
+              <a data-toggle="modal" data-target="#log" class="flex-item" href="">changelog</a>
+            </div>
+            <h5><strong>Database Version</strong></h5>
+            <p id="dbversion"></p>
+            <h5><strong>Credit</strong></h5>
+            <strong>Coder :</strong>
+            <p>User_425</p>
+            <strong>Contributors :
+            </strong><br>
+            <span>Shizuken</span><br>
+            <span>MrSyntheric</span><br>
+            <span>BlackFlag</span><br>
+            <span>Pid'z</span>
+            <br><br>
+            <p>Love our tools? Any <span><a href="https://forms.gle/MbMo8G1LoiMEFnEj8" target="_blank" rel="noopener noreferrer">feedback</a></span> would be appreciated!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade log modal-lg padding-auto" id="log" tabindex="4" role="dialog" aria-labelledby="aboutModal"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <h3 class="modal-title">Changelog</h3>
+            <button type="button" class="btn-close" data-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="logclass">
+              <p id="logId">
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- End Modals -->
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
+  <!-- <script src="assets/vendor/isotope-layout/isotope.pkgd.js"></script> -->
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src='assets/vendor/javascript/jquery.js'></script>
+  <script src='assets/vendor/javascript/bootstrap4.js'></script>
+  <script src='assets/vendor/javascript/popper.js'></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/module.js"></script>
+  <script src="assets/js/converter.js"></script>
+  <script src="assets/js/keyboard.js"></script>
+  <script src="assets/js/table.js"></script>
+  <script src="assets/js/log.js"></script>
+
+</body>
+
+</html>
