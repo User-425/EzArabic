@@ -9,7 +9,7 @@ EzArabic is a tool that allows you to effortlessly convert Latin characters into
 
 ## Usage
 
-1. Visit the [EzArabic Website](https://user-425.github.io/EzArabic/).
+1. Visit the [EzArabic Website](https://user-425.github.io/EzArabic/) or download it [Download](https://github.com/User-425/EzArabic/releases/tag/release).
 2. Enter your text in Latin characters.
 3. Convert.
 4. Copy the generated Arabic script.
