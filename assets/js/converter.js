@@ -48,23 +48,21 @@ function moduleChanged() {
   source.value = s;
 }
 
-const inputHandler = function( e ) {
-  selected = document.getElementById( 'moduleSelect' )
-    .value
-  reverse = document.getElementById( "reverse" )
-    .checked
-  stmt = e.target.value;
-  if ( reverse == true ) {
-    stmt = trans3( stmt, selected );
+const inputHandler = function() {
+  const selected = document.getElementById('moduleSelect').value;
+  const reverse = document.getElementById("reverse").checked;
+  let stmt = source.value;
+
+  if (reverse) {
+    stmt = trans3(stmt, selected);
   } else {
-    stmt = trans2( stmt, selected );
+    stmt = trans2(stmt, selected);
   }
 
-  a = document.getElementById( 'autoScroll' )
-    .checked;
-  textScroller( "output", a );
+  const autoScroll = document.getElementById('autoScroll').checked;
+  textScroller("output", autoScroll);
   result.innerHTML = stmt;
-}
+};
 
 $( "#moduleSelect" )
   .change( function() {

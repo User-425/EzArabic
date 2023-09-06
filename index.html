@@ -90,7 +90,7 @@
             <div class="form-group">
               <label for="output">Output</label>
               <br>
-              <textarea class="form-control right" rows="6" id="output" disabled="disabled"></textarea>
+              <textarea class="form-control" dir="rtl" rows="6" id="output" disabled="disabled"></textarea>
               <input type="range" style="--min: 14;
 						 --max: 75;
 						 --val: 25" step=".0002" id="slider" />
@@ -129,15 +129,15 @@
             </select> <br>
             <h6><strong>Auto Scroll :</strong></h6>
             <label class="switch">
-              <input type="checkbox" id="autoScroll" checked>
+              <input type="checkbox" id="autoScroll" autocomplete="off" checked >
               <span class="slider round"></span>
             </label>
             <br><br>
             <h6><strong>Reverse Translate :</strong></h6>
             <label class="switch">
-              <input type="checkbox" id="reverse">
+              <input type="checkbox" id="reverse" autocomplete="off" onchange="updateInput()">
               <span class="slider round"></span>
-            </label>
+            </label>            
             <br><br>
             <h6><strong>Table on Click</strong></h6>
             <form action="index.html" method="post">
@@ -218,5 +218,4 @@
   <script src="assets/js/log.js"></script>
 
 </body>
-
 </html>

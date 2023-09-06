@@ -1,9 +1,32 @@
-ezArabicVersion = "2.5.0 (Github Release)";
+ezArabicVersion = "2.5.1 (Github Release)";
 legacy_mode = "0";
 
 // Add version to HTML
-vrstext = document.getElementById( 'vrs' );
-vrstext.innerHTML = "v".concat( ezArabicVersion )
+$('#vrs').html('v' + ezArabicVersion);
+
+// Update input when user toggles reverse translate
+function updateInput() {
+  if ($('#input').attr('dir') === 'rtl') {
+    $('#input').attr('dir', 'ltr');
+    $('#output').attr('dir', 'rtl');
+  } else {
+    $('#input').attr('dir', 'rtl');
+    $('#output').attr('dir', 'ltr');
+  }
+  const selected = document.getElementById('moduleSelect').value;
+  const reverse = document.getElementById("reverse").checked;
+  let stmt = source.value;
+
+  if (reverse) {
+    stmt = trans3(stmt, selected);
+  } else {
+    stmt = trans2(stmt, selected);
+  }
+
+  const autoScroll = document.getElementById('autoScroll').checked;
+  textScroller("output", autoScroll);
+  result.innerHTML = stmt;
+}
 
 // Auto Scroller
 function textScroller( id , scrl) {
