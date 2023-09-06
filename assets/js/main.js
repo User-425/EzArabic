@@ -1,4 +1,4 @@
-ezArabicVersion = "2.5.0 (Github Release)";
+ezArabicVersion = "2.5.1 (Github Release)";
 legacy_mode = "0";
 
 // Add version to HTML
