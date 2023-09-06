@@ -14,6 +14,7 @@ log = [
 
 var logOutput = '';
 
+// log templating
 var logresult = log.map( function( x ) {
   x = x.replace( /;/g, '<br>' );
   x = x.replace( /-}/g, '</strong>' );
@@ -21,6 +22,7 @@ var logresult = log.map( function( x ) {
   return x;
 } );
 
+// logging with new line
 logresult.forEach( function( element ) {
   logOutput += element + '\n';
 } );

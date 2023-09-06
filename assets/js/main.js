@@ -1,6 +1,10 @@
 ezArabicVersion = "2.5.0 (Github Release)";
 legacy_mode = "0";
 
+// Add version to HTML
+vrstext = document.getElementById( 'vrs' );
+vrstext.innerHTML = "v".concat( ezArabicVersion )
+
 // Auto Scroller
 function textScroller( id , scrl) {
   if (scrl==true) {
@@ -14,7 +18,7 @@ $( 'input' )
     .css( 'font-size', $( e.target )
       .val() + 'px' ) );
 
-//copy
+// Copy Function
 function copy( id, inVal ) {
   var copyText = document.getElementById( id );
   if ( inVal == "in" ) {
@@ -35,6 +39,7 @@ function copy( id, inVal ) {
     } );
 }
 
+// Table click feature (copy or input)
 
 function press( id, inVal ) {
   table_f = document.getElementById( "tablefeature" ).value;
@@ -174,14 +179,6 @@ function clone( obj ) {
     onscroll( document, headerScrolled )
   }
 
-  function secret( word ) {
-    if ( word == "sukses selalu!" ) {
-      alert( "AMINNN!!" )
-    } else {
-      alert( "Sandi Salah!" )
-    }
-  }
-
   /**
    * Back to top button
    */
@@ -247,13 +244,4 @@ function clone( obj ) {
       }
     }
   } );
-
-  /**
-   * Animation on scroll
-   */
-
-
 } )()
-
-vrstext = document.getElementById( 'vrs' );
-vrstext.innerHTML = "v".concat( ezArabicVersion )

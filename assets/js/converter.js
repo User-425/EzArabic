@@ -4,6 +4,7 @@ const cheater = chooser('theCheatF',all_cheater).module;
 const reverse_cheater = chooser('theCheatF',all_cheater).reverse;
 const finaller = chooser('undefinedModule',all_cheater).module;
 
+
 function theUndefiner( str, mapper ) {
   str = ( str.split( '' )
     .map( a => mapper[ a ] ?? a )
