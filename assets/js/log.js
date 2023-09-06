@@ -22,7 +22,7 @@ var logresult = log.map( function( x ) {
   return x;
 } );
 
-// loggin with new line
+// logging with new line
 logresult.forEach( function( element ) {
   logOutput += element + '\n';
 } );
