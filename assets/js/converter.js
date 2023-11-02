@@ -18,7 +18,7 @@ function trans( str, from, to ) {
   } );
 };
 
-function trans2( s, m ) {
+function trans2( s, m ) { 
   s = theUndefiner( s, cheater);
   //cheat
   let transString = clone( chooser( m , all_data).input ).toString()
@@ -48,22 +48,27 @@ function moduleChanged() {
   source.value = s;
 }
 
-const inputHandler = function( e ) {
-  selected = document.getElementById( 'moduleSelect' )
-    .value
-  reverse = document.getElementById( "reverse" )
-    .checked
-  stmt = e.target.value;
-  if ( reverse == true ) {
-    stmt = trans3( stmt, selected );
-  } else {
-    stmt = trans2( stmt, selected );
-  }
+const inputHandler = function() {
+translate();
+}
 
-  a = document.getElementById( 'autoScroll' )
-    .checked;
-  textScroller( "output", a );
-  result.innerHTML = stmt;
+function translate() {
+selected = document.getElementById( 'moduleSelect' )
+  .value
+reverse = document.getElementById( "reverse" )
+  .checked
+
+stmt = source.value;
+if ( reverse == true ) {
+  stmt = trans3( stmt, selected );
+} else {
+  stmt = trans2( stmt, selected );
+}
+
+a = document.getElementById( 'autoScroll' )
+  .checked;
+textScroller( "output", a );
+result.innerHTML = stmt;
 }
 
 $( "#moduleSelect" )

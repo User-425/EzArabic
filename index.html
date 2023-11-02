@@ -15,6 +15,7 @@
   <link href="assets/css/bootstrap.css" rel="stylesheet">
   <link href="assets/css/style.css" rel="stylesheet">
 </head>
+
 <body>
 
   <!-- ======= Header ======= -->
@@ -37,6 +38,7 @@
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" href="#tool">Converter</a></li>
                 <li><a class="dropdown-item" href="#table1">Table List</a></li>
+                <li><a class="dropdown-item" data-toggle="modal" data-target="#replace">Replace</a></li>
               </ul>
             </div>
           </li>
@@ -58,7 +60,7 @@
       </div>
     </div>
   </header>
-  
+
   <section id="tool" class="section-bg">
     <div class="container">
       <div class="row justify-content-center">
@@ -66,7 +68,7 @@
           <div class="section-header text-center">
             <h3>Empowering Your Arabic Typing Experience</h3>
             <p>Seamlessly convert from Latin characters into stunning Arabic script.</p>
-            <button class="btn-get-started">Get Started</button>     
+            <button class="btn-get-started">Get Started</button>
           </div>
         </div>
       </div>
@@ -86,7 +88,7 @@
         <div class="row">
           <form>
             <label for="input">Input</label>
-                  <textarea class="form-control" rows="6" id="input" autocomplete="off"></textarea>
+            <textarea class="form-control" rows="6" id="input" autocomplete="off"></textarea>
             <div class="form-group">
               <label for="output">Output</label>
               <br>
@@ -169,7 +171,9 @@
             <p id="dbversion"></p>
             <h5><strong>Credit</strong></h5>
             <strong>Coder :</strong>
-            <a href="https://github.com/User-425"><p>User_425</p></a>
+            <a href="https://github.com/User-425">
+              <p>User_425</p>
+            </a>
             <strong>Contributors :
             </strong><br>
             <span>Shizuken</span><br>
@@ -177,7 +181,8 @@
             <span>BlackFlag</span><br>
             <span>Pid'z</span>
             <br><br>
-            <p>Love our tools? Any <span><a href="https://forms.gle/MbMo8G1LoiMEFnEj8" target="_blank" rel="noopener noreferrer">feedback</a></span> would be appreciated!</p>
+            <p>Love our tools? Any <span><a href="https://forms.gle/MbMo8G1LoiMEFnEj8" target="_blank"
+                  rel="noopener noreferrer">feedback</a></span> would be appreciated!</p>
           </div>
         </div>
       </div>
@@ -201,6 +206,37 @@
       </div>
     </div>
 
+    <div class="modal fade padding-auto" id="replace" tabindex="-1" role="dialog" aria-labelledby="replaceModal"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <h3 class="modal-title">Replace Text</h3>
+            <button type="button" class="btn-close" data-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <!-- Add form elements for replace functionality here -->
+            <div class="form-group">
+              <label for="findText">Find:</label>
+              <input type="text" class="form-control" id="findText" placeholder="Text to find">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="caseInsensitiveCheckbox">
+                <label class="form-check-label" for="caseInsensitiveCheckbox">Case-Insensitive</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="replaceText">Replace with:</label>
+              <input type="text" class="form-control" id="replaceText" placeholder="Text to replace with">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="performReplace()">Replace</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
   <!-- End Modals -->
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
@@ -216,7 +252,7 @@
   <script src="assets/js/converter.js"></script>
   <script src="assets/js/keyboard.js"></script>
   <script src="assets/js/log.js"></script>
-
+  <script src="assets/js/replace.js"></script>
 </body>
 
 </html>
