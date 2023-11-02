@@ -1,4 +1,6 @@
 log = [
+  "{-v2.6.0-} ; - Added Replace Feature;",
+  "{-v2.5.1-} ; - Mobile Bug Fix;",
   "{-v2.5.0-} ; - Minor Changes; - Github Version Release;",
   "{-v2.4.2-} ; - Bug Fixed, Switching Modules Doesn't Update Input;",
   "{-v2.4.1-} ; - Deleted Unnecessary Codes;",
