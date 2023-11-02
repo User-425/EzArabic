@@ -13,7 +13,7 @@ function textScroller( id , scrl) {
   }
 }
 
-$( 'input' )
+$( '#slider' )  
   .on( 'input', e => $( '#output' )
     .css( 'font-size', $( e.target )
       .val() + 'px' ) );
