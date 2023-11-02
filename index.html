@@ -215,7 +215,6 @@
             <button type="button" class="btn-close" data-dismiss="modal"></button>
           </div>
           <div class="modal-body">
-            <!-- Add form elements for replace functionality here -->
             <div class="form-group">
               <label for="findText">Find:</label>
               <input type="text" class="form-control" id="findText" placeholder="Text to find">
@@ -230,6 +229,7 @@
             </div>
           </div>
           <div class="modal-footer">
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#replaceHistoryModal" id="showHistoryButton">History</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" onclick="performReplace()">Replace</button>
           </div>
@@ -237,6 +237,39 @@
       </div>
     </div>
 
+    <div class="modal fade" id="replaceHistoryModal" tabindex="-1" role="dialog" aria-labelledby="replaceHistoryModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <h3 class="modal-title" id="replaceHistoryModalLabel">Replace History</h3>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="logclass">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Input</th>
+                <th scope="col">Output</th>
+                <th scope="col">Find</th>
+                <th scope="col">Replace With</th>
+                <th scope="col">Date</th>
+                <th scope="col">x</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
   </div>
   <!-- End Modals -->
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
