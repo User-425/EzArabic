@@ -1,104 +1,85 @@
-const source = document.getElementById( 'input' );
-const result = document.getElementById( 'output' );
-const cheater = chooser('theCheatF',all_cheater).module;
-const reverse_cheater = chooser('theCheatF',all_cheater).reverse;
-const finaller = chooser('undefinedModule',all_cheater).module;
+// Constants for DOM elements
+const source = document.getElementById('input');
+const result = document.getElementById('output');
+const moduleSelect = document.getElementById('moduleSelect');
+const reverseCheckbox = document.getElementById('reverse');
+const autoScrollCheckbox = document.getElementById('autoScroll');
 
+// Retrieve module data
+const allCheater = all_cheater;
+const cheaterModule = chooser('theCheatF', allCheater).module;
+const reverseCheaterModule = chooser('theCheatF', allCheater).reverse;
+const finallerModule = chooser('undefinedModule', allCheater).module;
 
-function theUndefiner( str, mapper ) {
-  str = ( str.split( '' )
-    .map( a => mapper[ a ] ?? a )
-    .join( '' ) );
-  return str;
+// Event listeners
+moduleSelect.addEventListener('change', moduleChanged);
+source.addEventListener('input', inputHandler);
+source.addEventListener('propertychange', inputHandler);
+reverseCheckbox.addEventListener('change', handleReverseChange);
+autoScrollCheckbox.addEventListener('change', handleAutoScrollChange);
+
+// Functions
+function replaceCharacters(str, mapper) {
+  return str.split('').map(char => mapper[char] || char).join('');
 }
 
-function trans( str, from, to ) {
-  return str.replace( new RegExp( `${from.join('|')}`, 'g' ), function( m ) {
-    return to[ from.indexOf( m ) ];
-  } );
-};  
-
-function trans2(s, m) {
-  s = theUndefiner(s, cheater);
-
-  // Cheat: Translate the input text
-  let transString = clone(chooser(m, all_data).input).toString();
-  let final = theUndefiner(transString, cheater).split(',');
-
-  // Handle case where input character is not in the module
-  s = s.split('').map(char => {
-    const index = final.indexOf(char);
-    if (index !== -1) {
-      return final[index];
-    } else {
-      // Convert to lowercase if not found in module
-      return char.toLowerCase();
-    }
-  }).join('');
-
-  s = trans(s, final, chooser(m, all_data).output);
-  s = theUndefiner(s, reverse_cheater);
-  s = theUndefiner(s, finaller);
-  return s;
+function convertCharacters(input, from, to) {
+  return input.replace(new RegExp(`${from.join('|')}`, 'g'), m => to[from.indexOf(m)]);
 }
 
-function trans3(s, m) {
-  s = theUndefiner(s, cheater);
-  s = trans(s, chooser(m, all_data).output, chooser(m, all_data).input);
-  s = theUndefiner(s, reverse_cheater);
+function translateText(statement, module, reverse) {
+  statement = replaceCharacters(statement, cheaterModule);
+  const transString = clone(chooser(module, all_data).input).toString();
+  const final = replaceCharacters(transString, cheaterModule).split(',');
 
-  // Handle case where input character is not in the module
-  s = s.split('').map(char => {
-    const index = chooser(m, all_data).output.indexOf(char);
-    if (index !== -1) {
-      return chooser(m, all_data).input[index];
-    } else {
-      // Convert to lowercase if not found in module
-      return char.toLowerCase();
-    }
-  }).join('');
+  if (reverse) {
+    statement = convertCharacters(statement, chooser(module, all_data).output, final);
+  } else {
+    statement = convertCharacters(statement, final, chooser(module, all_data).output);
+  }
 
-  s = theUndefiner(s, finaller);
-  return s;
+  statement = replaceCharacters(statement, reverse ? reverseCheaterModule : finallerModule);
+  return statement;
 }
 
 function moduleChanged() {
-  toModule = $( "#moduleSelect" )
-    .val()
-  s = result.value
-  if ( reverse == false ) {
-    s = trans( s, chooser( toModule, all_data ).output, chooser( toModule, all_data ).input );
+  const selectedModule = moduleSelect.value;
+  let statement = result.value;
+
+  if (!reverseCheckbox.checked) {
+    statement = translateText(statement, selectedModule, false);
   }
-  source.value = s;
+
+  source.value = statement;
 }
 
-const inputHandler = function() {
-translate();
+function inputHandler() {
+  translate();
 }
 
 function translate() {
-selected = document.getElementById( 'moduleSelect' )
-  .value
-reverse = document.getElementById( "reverse" )
-  .checked
+  const selectedModule = moduleSelect.value;
+  const reverse = reverseCheckbox.checked;
+  let statement = source.value;
 
-stmt = source.value;
-if ( reverse == true ) {
-  stmt = trans3( stmt, selected );
-} else {
-  stmt = trans2( stmt, selected );
+  if (reverse) {
+    statement = translateText(statement, selectedModule, true);
+  } else {
+    statement = translateText(statement, selectedModule, false);
+  }
+
+  const autoScroll = autoScrollCheckbox.checked;
+  textScroller('output', autoScroll);
+  result.innerHTML = statement;
 }
 
-a = document.getElementById( 'autoScroll' )
-  .checked;
-textScroller( "output", a );
-result.innerHTML = stmt;
+function handleReverseChange() {
+  const selectedModule = moduleSelect.value;
+  const reverse = reverseCheckbox.checked;
+  updateTranslation(selectedModule, reverse);
 }
 
-$( "#moduleSelect" )
-  .change( function() {
-    moduleChanged();
-  } );
-  
-source.addEventListener( 'input', inputHandler );
-source.addEventListener( 'propertychange', inputHandler );
+function handleAutoScrollChange() {
+  const autoScroll = autoScrollCheckbox.checked;
+  textScroller('output', autoScroll);
+}
