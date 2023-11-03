@@ -29,8 +29,20 @@ function convertCharacters(input, from, to) {
 
 function translateText(statement, module, reverse) {
   statement = replaceCharacters(statement, cheaterModule);
+
   const transString = clone(chooser(module, all_data).input).toString();
   const final = replaceCharacters(transString, cheaterModule).split(',');
+
+  // Handle case where input character is not in the module
+  statement = statement.split('').map(char => {
+    const index = final.indexOf(char);
+    if (index !== -1) {
+      return final[index];
+    } else {
+      // Convert to lowercase if not found in module
+      return char.toLowerCase();
+    }
+  }).join('');
 
   if (reverse) {
     statement = convertCharacters(statement, chooser(module, all_data).output, final);
