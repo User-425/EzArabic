@@ -20,7 +20,7 @@ autoScrollCheckbox.addEventListener('change', handleAutoScrollChange);
 
 // Functions
 function replaceCharacters(str, mapper) {
-  return str.split('').map(char => (char in mapper ? mapper[char] : char.toLowerCase())).join('');
+  return str.split('').map(char => mapper[char] || char).join('');
 }
 
 function convertCharacters(input, from, to) {
