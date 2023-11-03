@@ -16,25 +16,49 @@ function trans( str, from, to ) {
   return str.replace( new RegExp( `${from.join('|')}`, 'g' ), function( m ) {
     return to[ from.indexOf( m ) ];
   } );
-};
+};  
 
-function trans2( s, m ) { 
-  s = theUndefiner( s, cheater);
-  //cheat
-  let transString = clone( chooser( m , all_data).input ).toString()
-  let final = theUndefiner( transString, cheater ).split( ',' )
-  //end cheat
-  s = trans( s, final, chooser( m , all_data).output );
-  s = theUndefiner( s, reverse_cheater );
-  s = theUndefiner( s, finaller );
+function trans2(s, m) {
+  s = theUndefiner(s, cheater);
+
+  // Cheat: Translate the input text
+  let transString = clone(chooser(m, all_data).input).toString();
+  let final = theUndefiner(transString, cheater).split(',');
+
+  // Handle case where input character is not in the module
+  s = s.split('').map(char => {
+    const index = final.indexOf(char);
+    if (index !== -1) {
+      return final[index];
+    } else {
+      // Convert to lowercase if not found in module
+      return char.toLowerCase();
+    }
+  }).join('');
+
+  s = trans(s, final, chooser(m, all_data).output);
+  s = theUndefiner(s, reverse_cheater);
+  s = theUndefiner(s, finaller);
   return s;
 }
 
-function trans3( s, m ) {
-  s = theUndefiner( s, cheater );
-  s = trans( s, chooser( m , all_data).output, chooser( m ,all_data).input );
-  s = theUndefiner( s, reverse_cheater );
-  s = theUndefiner( s, finaller );
+function trans3(s, m) {
+  s = theUndefiner(s, cheater);
+  s = trans(s, chooser(m, all_data).output, chooser(m, all_data).input);
+  s = theUndefiner(s, reverse_cheater);
+
+  // Handle case where input character is not in the module
+  s = s.split('').map(char => {
+    const index = chooser(m, all_data).output.indexOf(char);
+    if (index !== -1) {
+      return chooser(m, all_data).input[index];
+    } else {
+      // Convert to lowercase if not found in module
+      return char.toLowerCase();
+    }
+  }).join('');
+
+  s = theUndefiner(s, finaller);
   return s;
 }
 
