@@ -1,97 +1,86 @@
 // Constants for DOM elements
-const source = document.getElementById('input');
-const result = document.getElementById('output');
-const moduleSelect = document.getElementById('moduleSelect');
-const reverseCheckbox = document.getElementById('reverse');
-const autoScrollCheckbox = document.getElementById('autoScroll');
+const inputElement = document.getElementById('input');
+const outputElement = document.getElementById('output');
+const moduleSelectElement = document.getElementById('moduleSelect');
+const reverseCheckboxElement = document.getElementById('reverse');
+const autoScrollCheckboxElement = document.getElementById('autoScroll');
 
 // Retrieve module data
-const allCheater = all_cheater;
-const cheaterModule = chooser('theCheatF', allCheater).module;
-const reverseCheaterModule = chooser('theCheatF', allCheater).reverse;
-const finallerModule = chooser('undefinedModule', allCheater).module;
+const allCheaterData = all_cheater;
+const defaultCheaterModule = useModule('theCheatF', allCheaterData).module;
+const reverseCheaterModule = useModule('theCheatF', allCheaterData).reverse;
+const undefinedModule = useModule('undefinedModule', allCheaterData).module;
 
 // Event listeners
-moduleSelect.addEventListener('change', moduleChanged);
-source.addEventListener('input', inputHandler);
-source.addEventListener('propertychange', inputHandler);
-reverseCheckbox.addEventListener('change', handleReverseChange);
-autoScrollCheckbox.addEventListener('change', handleAutoScrollChange);
+moduleSelectElement.addEventListener('change', onModuleChange);
+inputElement.addEventListener('input', onInputChange);
+inputElement.addEventListener('propertychange', onInputChange);
+reverseCheckboxElement.addEventListener('change', onReverseChange);
+autoScrollCheckboxElement.addEventListener('change', onAutoScrollChange);
 
 // Functions
-function replaceCharacters(str, mapper) {
-  return str.split('').map(char => mapper[char] || char).join('');
+function replaceCharacters(inputString, characterMap) {
+  return inputString.split('').map(char => characterMap[char] || char).join('');
 }
 
-function convertCharacters(input, from, to) {
-  return input.replace(new RegExp(`${from.join('|')}`, 'g'), m => to[from.indexOf(m)]);
+function convertCharacters(input, fromChars, toChars) {
+  return input.replace(new RegExp(`${fromChars.join('|')}`, 'g'), match => toChars[fromChars.indexOf(match)]);
 }
 
-function translateText(statement, module, reverse) {
-  statement = replaceCharacters(statement, cheaterModule);
+function translateText(statement, selectedModule, isReversed) {
+  statement = replaceCharacters(statement, defaultCheaterModule);
 
-  const transString = clone(chooser(module, all_data).input).toString();
-  const final = replaceCharacters(transString, cheaterModule).split(',');
+  const translationString = clone(useModule(selectedModule, all_data).input).toString();
+  const finalChars = replaceCharacters(translationString, defaultCheaterModule).split(',');
 
-  // Handle case where input character is not in the module
-  statement = statement.split('').map(char => {
-    const index = final.indexOf(char);
-    if (index !== -1) {
-      return final[index];
-    } else {
-      // Convert to lowercase if not found in module
-      return char.toLowerCase();
-    }
-  }).join('');
-
-  if (reverse) {
-    statement = convertCharacters(statement, chooser(module, all_data).output, final);
+  if (isReversed) {
+    statement = convertCharacters(statement, useModule(selectedModule, all_data).output, finalChars);
   } else {
-    statement = convertCharacters(statement, final, chooser(module, all_data).output);
+    statement = convertCharacters(statement, finalChars, useModule(selectedModule, all_data).output);
   }
 
-  statement = replaceCharacters(statement, reverse ? reverseCheaterModule : finallerModule);
+  statement = replaceCharacters(statement, isReversed ? reverseCheaterModule : undefinedModule);
   return statement;
 }
 
-function moduleChanged() {
-  const selectedModule = moduleSelect.value;
-  let statement = result.value;
+function onModuleChange() {
+  const selectedModule = moduleSelectElement.value;
+  let statement = outputElement.value;
 
-  if (!reverseCheckbox.checked) {
+  if (!reverseCheckboxElement.checked) {
     statement = translateText(statement, selectedModule, false);
   }
 
-  source.value = statement;
+  inputElement.value = statement;
 }
 
-function inputHandler() {
-  translate();
+function onInputChange() {
+  translateAndDisplay();
 }
 
-function translate() {
-  const selectedModule = moduleSelect.value;
-  const reverse = reverseCheckbox.checked;
-  let statement = source.value;
+function translateAndDisplay() {
+  const selectedModule = moduleSelectElement.value;
+  const isReversed = reverseCheckboxElement.checked;
+  let statement = inputElement.value;
 
-  if (reverse) {
+  if (isReversed) {
     statement = translateText(statement, selectedModule, true);
   } else {
     statement = translateText(statement, selectedModule, false);
   }
 
-  const autoScroll = autoScrollCheckbox.checked;
+  const autoScroll = autoScrollCheckboxElement.checked;
   textScroller('output', autoScroll);
-  result.innerHTML = statement;
+  outputElement.innerHTML = statement;
 }
 
-function handleReverseChange() {
-  const selectedModule = moduleSelect.value;
-  const reverse = reverseCheckbox.checked;
-  updateTranslation(selectedModule, reverse);
+function onReverseChange() {
+  const selectedModule = moduleSelectElement.value;
+  const isReversed = reverseCheckboxElement.checked;
+  updateTranslation(selectedModule, isReversed);
 }
 
-function handleAutoScrollChange() {
-  const autoScroll = autoScrollCheckbox.checked;
+function onAutoScrollChange() {
+  const autoScroll = autoScrollCheckboxElement.checked;
   textScroller('output', autoScroll);
 }
