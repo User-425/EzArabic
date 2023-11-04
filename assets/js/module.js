@@ -201,7 +201,7 @@
     }
   }
 
-  function useModule(name,all) {
+  function useModule(name, all) {
     return all.find((module) => module.name === name);
   }
 
@@ -210,7 +210,7 @@
   }
 
   function deconstructModule(name) {
-    const module = useModule(name,all_module);
+    const module = useModule(name, all_module);
     return module.formulas.map((formula) => formula.split(';'));
   }
 
@@ -224,7 +224,7 @@
     });
 
     table += `</tbody></table></div>`;
-    document.getElementById(elementId).innerHTML = table;
+    $(`#${elementId}`).html(table);
   }
 
   function deconstructModules() {
@@ -254,7 +254,7 @@
   function initializeOptionsAndCheaters() {
     all_module.forEach((module) => {
       if (module.type === 'Module') {
-        document.getElementById('moduleSelect').innerHTML += createOption(module.name);
+        $('#moduleSelect').append(createOption(module.name));
       } else if (module.type === 'Cheater') {
         const formulaMap = module.formulas.map((formula) => formula.split(';'));
         const formulaObject = Object.fromEntries(formulaMap);
@@ -264,7 +264,7 @@
   }
 
   function main() {
-    document.getElementById('dbversion').innerHTML = `v${dbversion}`;
+    $('#dbversion').html(`v${dbversion}`);
     deconstructModules();
     initializeOptionsAndCheaters();
     initializeTables();
@@ -273,5 +273,5 @@
   function swap(obj) {
     return Object.assign({}, ...Object.entries(obj).map(([a, b]) => ({ [b]: a })));
   }
-  
+
   main();
