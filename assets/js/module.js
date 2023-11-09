@@ -1,8 +1,9 @@
-dbversion = "3.1";
+dbversion = "3.2";
 all_module = [ {
     name: 'Legacy',
     type: 'Module',
     formulas: [
+      "a~~;ﭐ",
       "_'u;ٗ",
       "a~u;ؤ",
       "a~i;ئ",
