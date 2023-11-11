@@ -1,5 +1,5 @@
-const inputElement = $('#input');
-const outputElement = $('#output');
+const inputElements = $('#editor');
+const outputElements = $('#editor2');
 const moduleSelectElement = $('#moduleSelect');
 const reverseCheckboxElement = $('#reverse');
 const autoScrollCheckboxElement = $('#autoScroll');
@@ -12,7 +12,7 @@ const undefinedModule = useModule('undefinedModule', allCheaterData).module;
 
 // Event listeners
 moduleSelectElement.on('change', onModuleChange);
-inputElement.on('input', onInputChange);
+inputElements.on('keyup', onInputChange);
 inputElement.on('propertychange', onInputChange);
 reverseCheckboxElement.on('change', onReverseChange);
 autoScrollCheckboxElement.on('change', onAutoScrollChange);
@@ -20,7 +20,7 @@ autoScrollCheckboxElement.on('change', onAutoScrollChange);
 // Functions
 function replaceCharacters(inputString, characterMap) {
   return inputString.split('').map(char => characterMap[char] || char).join('');
-}
+} 
 
 function convertCharacters(input, fromChars, toChars) {
   return input.replace(new RegExp(`${fromChars.join('|')}`, 'g'), match => toChars[fromChars.indexOf(match)]);
@@ -43,14 +43,7 @@ function translateText(statement, selectedModule, isReversed) {
 }
 
 function onModuleChange() {
-  const selectedModule = moduleSelectElement.val();
-  let statement = outputElement.val();
-
-  if (!reverseCheckboxElement.prop('checked')) {
-    statement = translateText(statement, selectedModule, false);
-  }
-
-  inputElement.val(statement);
+  translateAndDisplay()
 }
 
 function onInputChange() {
@@ -60,23 +53,42 @@ function onInputChange() {
 function translateAndDisplay() {
   const selectedModule = moduleSelectElement.val();
   const isReversed = reverseCheckboxElement.prop('checked');
-  let statement = inputElement.val();
-
-  if (isReversed) {
-    statement = translateText(statement, selectedModule, true);
+  let statement = inputElement.getContents();
+  console.log(statement.ops);
+  // let statement = inputElement.val();
+statement.forEach((element) => {
+  // element.insert
+  if (isReversed == false) {
+    if (Object.hasOwn(element, "attributes")) {
+      if (Object.hasOwn(element.attributes, "latin") == false) {
+        element.insert = translateText(element.insert, selectedModule, false);
+      }
+    } else {
+      element.insert = translateText(element.insert, selectedModule, false);
+      // element.insert = trans2(element.insert, selected);
+    }
   } else {
-    statement = translateText(statement, selectedModule, false);
+    element.insert = translateText(element.insert, selectedModule, true);
+    // element.insert = trans3(element.insert, selected);
   }
 
+})
+  // if (isReversed) {
+  //   statement = translateText(statement, selectedModule, true);
+  // } else {
+  //   statement = translateText(statement, selectedModule, false);
+  // }
+
   const autoScroll = autoScrollCheckboxElement.prop('checked');
-  textScroller('output', autoScroll);
-  outputElement.html(statement);
+  textScroller('editor2', autoScroll);
+  outputElement.setContents(statement);
+  // outputElement.html(statement);
 }
 
 function onReverseChange() {
   const selectedModule = moduleSelectElement.val();
   const isReversed = reverseCheckboxElement.prop('checked');
-  updateTranslation(selectedModule, isReversed);
+  translateAndDisplay();
 }
 
 function onAutoScrollChange() {

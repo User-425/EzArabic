@@ -1,6 +1,42 @@
 ezArabicVersion = "2.6.0 (Github Release)";
 legacy_mode = "0";
 
+// Initialize for Quill Toolbars
+var toolbarOptions = [
+  ['bold', 'italic', 'underline', 'strike','latin'],        // toggled buttons
+  // ['blockquote', 'code-block'],
+
+  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+  // [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+  [{ 'direction': 'rtl' }],                         // text direction
+
+  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+  [{ 'font': [] }],
+    // [{ 'align': [] }],
+
+    // ['clean']                                         // remove formatting button
+];
+
+// Initialize Quill Rich Text Editor
+var inputElement = new Quill('#editor', {
+  modules: {
+    toolbar: toolbarOptions
+  },
+  theme: 'snow'
+});
+
+var outputElement = new Quill('#editor2', {
+  modules: {
+    toolbar: null
+  },
+  theme: 'snow'
+});
+
 // Add version to HTML
 vrstext = document.getElementById( 'vrs' );
 vrstext.innerHTML = "v".concat( ezArabicVersion )
@@ -38,6 +74,17 @@ function copy( id, inVal ) {
       }, 1500 );
     } );
 }
+
+function copyToClipboard(id) {
+  var from = document.getElementById(id);
+  var range = document.createRange();
+  window.getSelection().removeAllRanges();
+  range.selectNode(from);
+  window.getSelection().addRange(range);
+  document.execCommand('copy');
+  window.getSelection().removeAllRanges();
+}
+
 
 // Table click feature (copy or input)
 
