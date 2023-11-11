@@ -1,5 +1,5 @@
 const replaceHistory = [];
-const rollbackHistory = [];
+const undoRollbackHistory = []; // Change the name to undoRollbackHistory
 
 // Get Time
 function getDateTime() {
@@ -26,8 +26,8 @@ function logReplaceHistory(findText, replaceText, inputDelta) {
 
     replaceHistory.push(historyItem);
 
-    // Clear redo history as a new action is performed
-    rollbackHistory.length = 0;
+    // Clear undoRollback history as a new action is performed
+    undoRollbackHistory.length = 0; // Change the name to undoRollbackHistory
 }
 
 // Function to populate the history modal with replace history data
@@ -39,7 +39,44 @@ function updateHistoryModalContent() {
     for (let i = 0; i < replaceHistory.length; i++) {
         const historyItem = replaceHistory[i];
         const newRow = historyTable.insertRow();
-        newRow.innerHTML = `<th scope="row">${i + 1}</th><td>${historyItem.input.ops.map((op) => op.insert).join('')}</td><td>${historyItem.output}</td><td>${historyItem.find}</td><td>${historyItem.replaceWith}</td><td>${historyItem.date}</td><td><button class="btn btn-danger" onclick="undoReplace(${i})">Rollback</button></td>`;
+        newRow.innerHTML = `<th scope="row">${i + 1}</th><td>${historyItem.input.ops.map((op) => op.insert).join('')}</td><td>${historyItem.output}</td><td>${historyItem.find}</td><td>${historyItem.replaceWith}</td><td>${historyItem.date}</td><td><button class="btn btn-danger" onclick="undoReplace(${i})">Undo</button></td>`; // Change the onclick function to undoRollback
+    }
+}
+
+// Function to populate Undo Rollback History
+function updateUndoRollbackHistoryModalContent() {
+    const historyTable = document.querySelector("#undoRollbackHistoryModal table tbody"); // Change the name to undoRollbackHistoryModal
+    // Clear existing rows
+    historyTable.innerHTML = "";
+
+    for (let i = 0; i < undoRollbackHistory.length; i++) { // Change the name to undoRollbackHistory
+        const undoRollbackItem = undoRollbackHistory[i]; // Change the name to undoRollbackHistory
+        const newRow = historyTable.insertRow();
+        newRow.innerHTML = `<th scope="row">${i + 1}</th><td>${undoRollbackItem.inputBeforeUndoRollback.ops.map((op) => op.insert).join('')}</td><td>${undoRollbackItem.inputAfterUndoRollback.ops.map((op) => op.insert).join('')}</td><td>${undoRollbackItem.undoRollbackDate}</td><td><button class="btn btn-danger" onclick="undoRollback(${i})">Undo</button></td>`; // Change the onclick function to undoRollback
+    }
+}
+
+function undoRollback(index) {
+    if (index >= 0 && index < undoRollbackHistory.length) { // Change the name to undoRollbackHistory
+        const undoneHistory = undoRollbackHistory.splice(index, 1)[0]; // Change the name to undoRollbackHistory
+        const undoRollbackData = {
+            inputBeforeUndoRollback: inputElement.getContents(),
+            inputAfterUndoRollback: undoneHistory.inputAfterUndoRollback,
+            undoRollbackDate: undoneHistory.undoRollbackDate, // Change the name to undoRollbackDate
+            date: undoneHistory.replaceDate, // Assuming this is still needed
+            input: undoneHistory.replaceInput, // Assuming this is still needed
+            output: undoneHistory.replaceOutput, // Assuming this is still needed
+            find: undoneHistory.replaceFind, // Assuming this is still needed
+            replaceWith: undoneHistory.replaceWith, // Assuming this is still needed
+        };
+        // Perform the undoRollback operation by setting the editor content to the input after undoRollback
+        inputElement.setContents(undoneHistory.inputAfterUndoRollback);
+
+        // You can also push the undoRollback operation to a redo history array if needed
+        replaceHistory.push(undoRollbackData); // Change the name to replaceHistory
+        updateUndoRollbackHistoryModalContent()
+        updateHistoryModalContent(); // Refresh the history modal
+        translateAndDisplay();
     }
 }
 
@@ -47,20 +84,20 @@ function updateHistoryModalContent() {
 function undoReplace(index) {
     if (index >= 0 && index < replaceHistory.length) {
         const undoneHistory = replaceHistory.splice(index, 1)[0];
-        const rollbackData = {
-            inputBeforeRollback: inputElement.getContents(),
-            inputAfterRollback: undoneHistory.input,
-            rollbackDate: getDateTime(), // Capture the date
-            replaceDate:undoneHistory.date,
-            replaceInput: undoneHistory.input,
-            replaceOutput: undoneHistory.output,
-            replaceFind:undoneHistory.find,
-            replaceWith:undoneHistory.replaceWith
+        const undoRollbackData = {
+            inputBeforeUndoRollback: inputElement.getContents(),
+            inputAfterUndoRollback: undoneHistory.input,
+            undoRollbackDate: getDateTime(), // Capture the date
+            replaceDate: undoneHistory.date, // Change the name to replaceDate
+            replaceInput: undoneHistory.input, // Change the name to replaceInput
+            replaceOutput: undoneHistory.output, // Change the name to replaceOutput
+            replaceFind: undoneHistory.find, // Change the name to replaceFind
+            replaceWith: undoneHistory.replaceWith,
         };
         // Perform the undo operation by setting the editor content to the original input
         inputElement.setContents(undoneHistory.input);
         // You can also push the undone operation to a redo history array if needed
-        rollbackHistory.push(rollbackData);
+        undoRollbackHistory.push(undoRollbackData); // Change the name to undoRollbackHistory
         updateHistoryModalContent(); // Refresh the history modal
         translateAndDisplay();
     }

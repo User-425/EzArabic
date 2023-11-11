@@ -12,6 +12,7 @@
   <link href="assets/css/fonts.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
   <link href="assets/css/bootstrap.css" rel="stylesheet">
   <link href="assets/css/style.css" rel="stylesheet">
 </head>
@@ -85,31 +86,33 @@
   <main id="main">
     <section id="tool" class="tool">
       <div class="container" data-aos="fade-up">
-        <div class="row">
+        <div class="">
           <form>
-            <label for="input">Input</label>
+            <div id="editor"></div><br>
+            <div id="editor2"></div>
+            <!-- <label for="input">Input</label>
             <textarea class="form-control" rows="6" id="input" autocomplete="off"></textarea>
             <div class="form-group">
               <label for="output">Output</label>
               <br>
-              <textarea class="form-control right" rows="6" id="output" disabled="disabled"></textarea>
-              <input type="range" style="--min: 14;
+              <textarea class="form-control right" rows="6" id="output" disabled="disabled"></textarea> -->
+            <input type="range" style="--min: 14;
 						 --max: 75;
 						 --val: 25" step=".0002" id="slider" />
-            </div>
-            <br>
-            <button type="button" class="btn btn-primary" id="copybtn" onclick="copy('output','val')"
-              style="width: 100px;">Copy text</button>
-          </form>
-          <br>
-          <div class="tablegrid">
-            <h3 class="tabletitle tengah">Convertation Table List</h3>
-            <h5 class="table1title tengah">Normal Module</h5>
-            <div class="tengah" id="table1"> </div>
-            <h5 class="table2title tengah">Legacy Module</h5>
-            <div class="tengah" id="table2"> </div>
-          </div>
         </div>
+        <br>
+        <button type="button" class="btn btn-primary" id="copybtn" onclick="copy('editor2','')"
+          style="width: 100px;">Copy text</button>
+        </form>
+        <br>
+        <div class="tablegrid">
+          <h3 class="tabletitle tengah">Convertation Table List</h3>
+          <h5 class="table1title tengah">Normal Module</h5>
+          <div class="tengah" id="table1"> </div>
+          <h5 class="table2title tengah">Legacy Module</h5>
+          <div class="tengah" id="table2"> </div>
+        </div>
+      </div>
       </div>
     </section>
   </main>
@@ -229,48 +232,82 @@
             </div>
           </div>
           <div class="modal-footer d-flex justify-content-between">
-            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#replaceHistoryModal" id="showHistoryButton">History</button>
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#replaceHistoryModal"
+              id="showHistoryButton">History</button>
             <div>
               <button type="button" class="btn btn-primary" onclick="performReplace()">Replace</button>
             </div>
-          </div>          
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="modal fade" id="replaceHistoryModal" tabindex="-1" role="dialog" aria-labelledby="replaceHistoryModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header border-bottom-0">
-        <h3 class="modal-title" id="replaceHistoryModalLabel">Replace History</h3>
-        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="logclass">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">No</th>
-                <th scope="col">Input</th>
-                <th scope="col">Output</th>
-                <th scope="col">Find</th>
-                <th scope="col">Replace With</th>
-                <th scope="col">Date</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
+    <div class="modal fade" id="replaceHistoryModal" tabindex="-1" role="dialog" aria-labelledby="replaceHistoryModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <h3 class="modal-title" id="replaceHistoryModalLabel">Replace History</h3>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="logclass">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Input</th>
+                    <th scope="col">Output</th>
+                    <th scope="col">Find</th>
+                    <th scope="col">Replace With</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#undoRollbackHistoryModal"
+            id="rollbackHistoryButton" onclick="updateUndoRollbackHistoryModalContent()">Rollback History</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+
+    <div class="modal fade" id="undoRollbackHistoryModal" tabindex="-1" role="dialog" aria-labelledby="rollbackHistoryModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <h3 class="modal-title" id="rollbackHistoryModalLabel">Rollback History</h3>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="logclass">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Before</th>
+                    <th scope="col">After</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+    
   </div>
   <!-- End Modals -->
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
@@ -281,6 +318,7 @@
   <script src='assets/vendor/javascript/jquery.js'></script>
   <script src='assets/vendor/javascript/bootstrap4.js'></script>
   <script src='assets/vendor/javascript/popper.js'></script>
+  <script src='assets/vendor/quill/quill-min.js'></script>
   <script src="assets/js/main.js"></script>
   <script src="assets/js/module.js"></script>
   <script src="assets/js/converter.js"></script>
