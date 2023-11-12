@@ -1,4 +1,4 @@
-dbversion = "3.2";
+dbversion = "3.3";
 all_module = [ {
     name: 'Legacy',
     type: 'Module',
@@ -32,6 +32,10 @@ all_module = [ {
       "_q;ۗ",
       "_l;ۙ",
       "_j;ۚ",
+      "_m;ۢ",
+      "_s;ۜ",
+      "_Th;‌ؕ",
+      "_...;ۛ",
       "ng;غ",
       "Kh;ح",
       "ch;ح",
