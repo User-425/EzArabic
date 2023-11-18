@@ -54,7 +54,6 @@ function translateAndDisplay() {
   const selectedModule = moduleSelectElement.val();
   const isReversed = reverseCheckboxElement.prop('checked');
   let statement = inputElement.getContents();
-  console.log(statement.ops);
   // let statement = inputElement.val();
 statement.forEach((element) => {
   // element.insert

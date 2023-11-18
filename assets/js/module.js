@@ -1,4 +1,4 @@
-dbversion = "3.2";
+dbversion = "3.3";
 all_module = [{
   name: 'Legacy',
   type: 'Module',
