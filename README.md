@@ -1,11 +1,14 @@
-# EzArabic - Seamlessly Convert Latin Characters into Stunning Arabic Script
 
-EzArabic is a tool that allows you to effortlessly convert Latin characters into beautiful Arabic script. Whether you're designing a website, creating graphics, or working on any project that involves Arabic text, EzArabic simplifies the process and ensures your content looks stunning.
+
+# EzArabic - Seamlessly Convert Latin Characters into Arabic Script
+
+Ever having hard time using Arabic keyboard layout? Introducing EzArabic! EzArabic is a tool that allows you to effortlessly convert Latin characters into Arabic script.
 
 ## Features
 
-- Easy Conversion: Convert text written in Latin characters to Arabic script seamlessly.
-- Customization: Fine-tune the appearance of the Arabic script to match your design.
+- Easy Conversion: Convert text written in Latin characters to Arabic script.
+- Replace
+- Replace History
 
 ## Usage
 
@@ -13,7 +16,17 @@ EzArabic is a tool that allows you to effortlessly convert Latin characters into
 2. Enter your text in Latin characters.
 3. Convert.
 4. Copy the generated Arabic script.
-5. Paste it into your project and enjoy the stunning transformation.
+5. Paste it into your project.
+
+## Screenshot
+
+![display.png](\screenshot\display.png)
+
+<img src="/screenshot/replace.png" title="" alt="replace.png" width="355">
+
+<img title="" src="/screenshot/replace_history.png" alt="replace_history.png" width="370">
+
+<img src="/screenshot/cheatsheet.png" title="" alt="cheatsheet.png" width="560">
 
 ## License
 
