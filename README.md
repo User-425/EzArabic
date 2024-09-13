@@ -20,13 +20,13 @@ Ever having hard time using Arabic keyboard layout? Introducing EzArabic! EzArab
 
 ## Screenshot
 
-![display.png](\screenshot\display.png)
+<img src="/screenshot/display.png" title="Display View" alt="replace.png" width="355">
 
-<img src="/screenshot/replace.png" title="" alt="replace.png" width="355">
+<img src="/screenshot/replace.png" title="Replace Feature" alt="replace.png" width="355">
 
-<img title="" src="/screenshot/replace_history.png" alt="replace_history.png" width="370">
+<img title="Replace History" src="/screenshot/replace_history.png" alt="replace_history.png" width="370">
 
-<img src="/screenshot/cheatsheet.png" title="" alt="cheatsheet.png" width="560">
+<img src="/screenshot/cheatsheet.png" title="Cheatsheet" alt="cheatsheet.png" width="560">
 
 ## License
 
